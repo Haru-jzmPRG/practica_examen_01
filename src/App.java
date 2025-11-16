@@ -1,4 +1,6 @@
 public class App {
+
+    public static final String CLEAN_SCREEN = "\033[H\033[2J";
     public static final String RESET = "\033[0m";
     public static final String RED_BACKGROUND = "\033[41m";
     public static final String GREEN_BACKGROUND = "\033[42m";
@@ -93,6 +95,21 @@ public class App {
                 System.out.print(" ---");
             }
         } else {
+            char colores = System.console().readLine("Elija entre ejecutar una vez o sin fin (V | F): ").toLowerCase()
+                    .charAt(0);
+
+            codigoSalida = 0;
+            switch (colores) {
+                case 'v':
+                    codigoSalida = 1;
+                    break;
+                case 'f':
+                    codigoSalida = 2;
+                    break;
+                default:
+                    codigoSalida = 1;
+                    break;
+            }
             String caracter = " ";
             while (aleatorio > 0) {
                 digito = (int) aleatorio % 10;
@@ -106,8 +123,26 @@ public class App {
 
             }
             digito = 0;
+            if (codigoSalida == 2) {
+                boolean repetir = true;
 
-            for (int i = 0; i <= digitoMayor + 1; i++) {
+                while (repetir) {
+                    aleatorio = (long) (Math.random() * (max - min + 1) + min);
+
+                    volteado = 0;
+                    digitoMayor = 9;
+                    longitud = 0;
+
+                    caracter = " ";
+                    while (aleatorio > 0) {
+                        digito = (int) aleatorio % 10;
+                        volteado = (volteado * 10) + digito;
+                        aleatorio /= 10;
+                        longitud++;
+
+                    }
+
+                    for (int i = 0; i <= digitoMayor + 1; i++) {
 
                         if (i == 0) {
                             System.out.printf("╔═");
@@ -119,75 +154,163 @@ public class App {
                     }
                     System.out.println();
 
-            while (longitud > 0) {
+                    while (longitud > 0) {
 
-                digito = (int) volteado % 10;
+                        digito = (int) volteado % 10;
 
-                switch (digito) {
-                    case 0, 1, 2, 3, 4:
-                        caracter = BLUE_BACKGROUND + " " + RESET;
-                        break;
-                    case 5, 6:
-                        caracter = RED_BACKGROUND + " " + RESET;
-                        break;
-                    case 7, 8:
-                        caracter = GREEN_BACKGROUND + " " + RESET;
-                        break;
-                    case 9:
-                        caracter = PURPLE_BACKGROUND + " " + RESET;
-                        break;
+                        switch (digito) {
+                            case 0, 1, 2, 3, 4:
+                                caracter = BLUE_BACKGROUND + " " + RESET;
+                                break;
+                            case 5, 6:
+                                caracter = RED_BACKGROUND + " " + RESET;
+                                break;
+                            case 7, 8:
+                                caracter = GREEN_BACKGROUND + " " + RESET;
+                                break;
+                            case 9:
+                                caracter = PURPLE_BACKGROUND + " " + RESET;
+                                break;
+                        }
+                        if (longitud > 0) {
+
+                            int aux = digito;
+
+                            for (int i = 0; i <= digitoMayor + 1; i++) {
+
+                                if (i == 0) {
+                                    System.out.printf("║%d", digito);
+                                } else if (i < (digitoMayor + 1)) {
+                                    if (aux > 0) {
+                                        System.out.printf("║%s", caracter);
+                                        aux--;
+                                    } else {
+                                        System.out.printf("║ ");
+                                    }
+                                } else {
+                                    System.out.printf("║");
+                                }
+                            }
+                            System.out.println();
+
+                            if (longitud > 1) {
+                                for (int i = 0; i <= digitoMayor + 1; i++) {
+                                    if (i == 0) {
+                                        System.out.printf("╠═");
+                                    } else if (i < (digitoMayor + 1)) {
+                                        System.out.printf("╬═");
+                                    } else {
+                                        System.out.printf("╣");
+                                    }
+                                }
+                                System.out.println();
+                                volteado /= 10;
+                            }
+                        }
+                        longitud--;
+                    }
+                    if (longitud == 0) {
+
+                        for (int i = 0; i <= digitoMayor + 1; i++) {
+
+                            if (i == 0) {
+                                System.out.printf("╚═");
+                            } else if (i < (digitoMayor + 1)) {
+                                System.out.printf("╩═");
+                            } else {
+                                System.out.printf("╝");
+                            }
+                        }
+                        System.out.println();
+                    }
+                    
+                    Thread.sleep(700);
+                    System.out.print(CLEAN_SCREEN);
                 }
-                if (longitud > 0) {
+                
+            } else {
+                for (int i = 0; i <= digitoMayor + 1; i++) {
 
-                    int aux = digito;
+                    if (i == 0) {
+                        System.out.printf("╔═");
+                    } else if (i < (digitoMayor + 1)) {
+                        System.out.printf("╦═");
+                    } else {
+                        System.out.printf("╗");
+                    }
+                }
+                System.out.println();
+
+                while (longitud > 0) {
+
+                    digito = (int) volteado % 10;
+
+                    switch (digito) {
+                        case 0, 1, 2, 3, 4:
+                            caracter = BLUE_BACKGROUND + " " + RESET;
+                            break;
+                        case 5, 6:
+                            caracter = RED_BACKGROUND + " " + RESET;
+                            break;
+                        case 7, 8:
+                            caracter = GREEN_BACKGROUND + " " + RESET;
+                            break;
+                        case 9:
+                            caracter = PURPLE_BACKGROUND + " " + RESET;
+                            break;
+                    }
+                    if (longitud > 0) {
+
+                        int aux = digito;
+
+                        for (int i = 0; i <= digitoMayor + 1; i++) {
+
+                            if (i == 0) {
+                                System.out.printf("║%d", digito);
+                            } else if (i < (digitoMayor + 1)) {
+                                if (aux > 0) {
+                                    System.out.printf("║%s", caracter);
+                                    aux--;
+                                } else {
+                                    System.out.printf("║ ");
+                                }
+                            } else {
+                                System.out.printf("║");
+                            }
+                        }
+                        System.out.println();
+
+                        if (longitud > 1) {
+                            for (int i = 0; i <= digitoMayor + 1; i++) {
+                                if (i == 0) {
+                                    System.out.printf("╠═");
+                                } else if (i < (digitoMayor + 1)) {
+                                    System.out.printf("╬═");
+                                } else {
+                                    System.out.printf("╣");
+                                }
+                            }
+                            System.out.println();
+                            volteado /= 10;
+                        }
+                    }
+                    longitud--;
+                }
+                if (longitud == 0) {
 
                     for (int i = 0; i <= digitoMayor + 1; i++) {
 
                         if (i == 0) {
-                            System.out.printf("║%d", digito);
+                            System.out.printf("╚═");
                         } else if (i < (digitoMayor + 1)) {
-                            if (aux > 0) {
-                                System.out.printf("║%s", caracter);
-                                aux--;
-                            } else {
-                                System.out.printf("║ ");
-                            }
+                            System.out.printf("╩═");
                         } else {
-                            System.out.printf("║");
+                            System.out.printf("╝");
                         }
-                    }
-                    System.out.println();
-
-                    if (longitud > 1) {
-                        for (int i = 0; i <= digitoMayor + 1; i++) {
-                            if (i == 0) {
-                                System.out.printf("╠═");
-                            } else if (i < (digitoMayor + 1)) {
-                                System.out.printf("╬═");
-                            } else {
-                                System.out.printf("╣");
-                            }
-                        }
-                        System.out.println();                        
-                        volteado /= 10;
-                    }
-                }
-                longitud--;
-            }
-            if (longitud == 0) {
-
-                for (int i = 0; i <= digitoMayor + 1; i++) {
-
-                    if (i == 0) {
-                        System.out.printf("╚═");
-                    } else if (i < (digitoMayor + 1)) {
-                        System.out.printf("╩═");
-                    } else {
-                        System.out.printf("╝");
                     }
                 }
             }
-            
+
         }
     }
 }
