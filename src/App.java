@@ -106,7 +106,18 @@ public class App {
 
             }
             digito = 0;
-            int auxLongitud = longitud;
+
+            for (int i = 0; i <= digitoMayor + 1; i++) {
+
+                        if (i == 0) {
+                            System.out.printf("╔═");
+                        } else if (i < (digitoMayor + 1)) {
+                            System.out.printf("╦═");
+                        } else {
+                            System.out.printf("╗");
+                        }
+                    }
+                    System.out.println();
 
             while (longitud > 0) {
 
@@ -126,29 +137,9 @@ public class App {
                         caracter = PURPLE_BACKGROUND + " " + RESET;
                         break;
                 }
-                if (longitud == auxLongitud) {
-
-                    for (int i = 0; i <= digitoMayor + 1; i++) {
-
-                        int contador = i;
-
-                        if (i == 0) {
-                            System.out.printf("╔");
-                        } else if (i < (digitoMayor + 1)) {
-                            if (contador % 2 != 0) {
-                                System.out.printf("═");
-                            } else {
-                                System.out.printf("╦");
-                            }
-                        } else {
-                            System.out.printf("╗");
-                        }
-                    }
-                    System.out.println();
-                } else if (longitud > 0) {
+                if (longitud > 0) {
 
                     int aux = digito;
-                    System.out.println();
 
                     for (int i = 0; i <= digitoMayor + 1; i++) {
 
@@ -167,46 +158,36 @@ public class App {
                     }
                     System.out.println();
 
-                    for (int i = 0; i <= digitoMayor + 1; i++) {
-
-                        int contador = i;
-
-                        if (i == 0) {
-                            System.out.printf("╠");
-                        } else if (i < (digitoMayor + 1)) {
-                            if (contador % 2 != 0) {
-                                System.out.printf("═");
+                    if (longitud > 1) {
+                        for (int i = 0; i <= digitoMayor + 1; i++) {
+                            if (i == 0) {
+                                System.out.printf("╠═");
+                            } else if (i < (digitoMayor + 1)) {
+                                System.out.printf("╬═");
                             } else {
-                                System.out.printf("╬");
+                                System.out.printf("╣");
                             }
-                        } else {
-                            System.out.printf("╣");
                         }
+                        System.out.println();                        
+                        volteado /= 10;
                     }
                 }
-                if (longitud - 1 == 0) {
-
-                    for (int i = 0; i <= digitoMayor + 1; i++) {
-
-                        int contador = i;
-
-                        if (i == 0) {
-                            System.out.printf("╚");
-                        } else if (i < (digitoMayor + 1)) {
-                            if (contador % 2 != 0) {
-                                System.out.printf("═");
-                            } else {
-                                System.out.printf("╩");
-                            }
-                        } else {
-                            System.out.printf("╝");
-                        }
-                    }
-                }
-
-                volteado /= 10;
                 longitud--;
             }
+            if (longitud == 0) {
+
+                for (int i = 0; i <= digitoMayor + 1; i++) {
+
+                    if (i == 0) {
+                        System.out.printf("╚═");
+                    } else if (i < (digitoMayor + 1)) {
+                        System.out.printf("╩═");
+                    } else {
+                        System.out.printf("╝");
+                    }
+                }
+            }
+            
         }
     }
 }
